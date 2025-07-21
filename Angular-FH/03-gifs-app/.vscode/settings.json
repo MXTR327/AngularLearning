@@ -1,0 +1,16 @@
+{
+    "angular-schematics.schematicsDefaultOptions": {
+        "angular-*": {
+            "externalTemplate": true,
+            "skipStyle": true
+        }
+    },
+    "cSpell.words": [
+        "Bienvenido",
+        "Buscador",
+        "Buscar",
+        "gifs",
+        "populares"
+    ],
+    "typescript.tsdk": "node_modules\\typescript\\lib"
+}
