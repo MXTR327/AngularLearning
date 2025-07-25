@@ -7,6 +7,7 @@ import
   OnInit,
   signal,
 } from '@angular/core';
+import { TitleComponent } from '../../components/title/title.component';
 
 const log = ( ...messages: string[] ) =>
 {
@@ -18,7 +19,7 @@ const log = ( ...messages: string[] ) =>
 
 @Component( {
   selector: 'home-page',
-  imports: [],
+  imports: [ TitleComponent ],
   templateUrl: './home-page.component.html',
 } )
 export class HomePageComponent implements OnInit
@@ -30,12 +31,12 @@ export class HomePageComponent implements OnInit
   {
     log( 'Contructor llamado' );
 
-    setTimeout( () =>
-    {
-      this.signalProperty.set("Juan Carlos");
+    // setTimeout( () =>
+    // {
+    //    this.signalProperty.set( "Juan Carlos" );
 
-      console.log("Hecho");
-    }, 2000 );
+    //    console.log( "Hecho" );
+    // }, 2000 );
   }
 
   changeTraditional()
