@@ -8,7 +8,7 @@ mapboxgl.accessToken = environment.mapboxKey;
 
 @Component( {
   selector: 'app-fullscreen-map-page',
-  imports: [DecimalPipe, JsonPipe, MarkersPageComponent],
+  imports: [ DecimalPipe, JsonPipe, MarkersPageComponent ],
   templateUrl: './fullscreen-map-page.component.html',
   styleUrl: "./fullscreen-map-page.styles.css",
 } )
