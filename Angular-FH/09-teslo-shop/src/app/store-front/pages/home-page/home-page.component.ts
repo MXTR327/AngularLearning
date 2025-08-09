@@ -6,7 +6,7 @@ import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component( {
   selector: 'app-home-page',
-  imports: [ ProductCardComponent ],
+  imports: [ ProductCardComponent],
   templateUrl: './home-page.component.html',
 } )
 export class HomePageComponent
@@ -17,7 +17,7 @@ export class HomePageComponent
       params: () => ( {} ),
       stream: ( { params: request } ) =>
       {
-        return this.productsService.getProducts();
+        return this.productsService.getProducts( {} );
       }
     }
   );
