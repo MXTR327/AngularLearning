@@ -1,24 +1,27 @@
 import { Component, inject } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { ProductCardComponent } from '@products/components/product-card/product-card.component';
 import { ProductsService } from '@products/services/products.service';
-import { rxResource } from '@angular/core/rxjs-interop';
-// import { ProductCardComponent } from "../../../products/components/product-card/product-card.component";
+import { PaginationComponent } from '@shared/components/paginations/pagination.component';
+import { PaginationService } from '@shared/components/paginations/pagination.service';
 
-@Component( {
+@Component({
   selector: 'app-home-page',
-  imports: [ ProductCardComponent],
+  imports: [ProductCardComponent, PaginationComponent],
   templateUrl: './home-page.component.html',
-} )
+})
 export class HomePageComponent
 {
-  productsService = inject( ProductsService );
-  productsResource = rxResource(
+  paginationService = inject(PaginationService);
+  productsService = inject(ProductsService);
+
+  productsResource = rxResource({
+    params: () => ({ page: this.paginationService.currentPage() - 1 }),
+    stream: ({ params }) =>
     {
-      params: () => ( {} ),
-      stream: ( { params: request } ) =>
-      {
-        return this.productsService.getProducts( {} );
-      }
-    }
-  );
+      return this.productsService.getProducts({
+        offset: params.page * 9,
+      });
+    },
+  });
 }

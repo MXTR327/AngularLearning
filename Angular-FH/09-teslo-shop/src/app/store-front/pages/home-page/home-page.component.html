@@ -1,14 +1,23 @@
-<h1 class="text-3xl font-bold font-montserrat">Todos los productos</h1>
-<h2 class="text-xl mb-5">Para todos los gustos</h2>
+<h1 class="font-montserrat text-3xl font-bold">
+  Todos los productos {{ paginationService.currentPage() }}
+</h1>
+<h2 class="mb-5 text-xl">Para todos los gustos</h2>
 
 <div
-  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-2 gap-3"
+  class="mt-2 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
 >
-  @for (product of productsResource.value()?.products; track product.id) {
-  <product-card [product]="product" />
+  @for (product of productsResource.value()?.products; track product.id)
+  {
+    <app-product-card [product]="product" />
   }
   <!--  -->
-  @empty {
-  <p>No hay productos</p>
+  @empty
+  {
+    <p>No hay productos</p>
   }
 </div>
+
+<app-pagination
+  [pages]="productsResource.value()?.pages ?? 0"
+  [currentPage]="paginationService.currentPage()"
+/>

@@ -1,24 +1,24 @@
-import { rxResource } from '@angular/core/rxjs-interop';
 import { Component, inject } from '@angular/core';
-import { ProductsService } from '@products/services/products.service';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
+import { ProductCarouselComponent } from '@products/components/product-carousel/product-carousel.component';
+import { ProductsService } from '@products/services/products.service';
 
-@Component( {
+@Component({
   selector: 'app-product-page',
-  imports: [],
+  imports: [ProductCarouselComponent],
   templateUrl: './product-page.component.html',
-} )
+})
 export class ProductPageComponent
 {
-  activatedRoute = inject( ActivatedRoute );
-  productsService = inject( ProductsService );
+  activatedRoute = inject(ActivatedRoute);
+  productIdSlug: string = this.activatedRoute.snapshot.params['idSlug'];
 
-  productIdSlug: string = this.activatedRoute.snapshot.params[ "idSlug" ];
+  productsService = inject(ProductsService);
 
-  productResource = rxResource(
-    {
-      params: () => ( { idSlug: this.productIdSlug } ),
-      stream: ( { params } ) => this.productsService.getProductByIdSlug( params.idSlug ),
-    }
-  );
+  productResource = rxResource({
+    params: () => ({ idSlug: this.productIdSlug }),
+    stream: ({ params }) =>
+      this.productsService.getProductByIdSlug(params.idSlug),
+  });
 }
