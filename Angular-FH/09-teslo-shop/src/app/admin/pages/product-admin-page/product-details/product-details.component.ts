@@ -1,4 +1,11 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductCarouselComponent } from '@products/components/product-carousel/product-carousel.component';
@@ -21,7 +28,15 @@ export class ProductDetailsComponent implements OnInit
 {
   fb = inject(FormBuilder);
 
+  imageFileList: FileList | undefined = undefined;
   product = input.required<Product>();
+
+  tempImages = signal<string[]>([]);
+
+  imagesToCarrousel = computed(() => [
+    ...this.product().images,
+    ...this.tempImages(),
+  ]);
 
   productForm = this.fb.group({
     description: ['', Validators.required],
@@ -40,8 +55,8 @@ export class ProductDetailsComponent implements OnInit
     tags: [''],
     title: ['', Validators.required],
   });
-
   productsService = inject(ProductsService);
+
   router = inject(Router);
 
   sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
@@ -51,6 +66,23 @@ export class ProductDetailsComponent implements OnInit
   ngOnInit(): void
   {
     this.setFormValue(this.product());
+  }
+
+  // Images
+  onFilesChanged(event: Event)
+  {
+    const fileList = (event.target as HTMLInputElement).files;
+    this.imageFileList = fileList ?? undefined;
+
+    console.log(fileList);
+
+    const imageUrl = Array.from(fileList ?? []).map(file =>
+      URL.createObjectURL(file)
+    );
+
+    console.log(imageUrl);
+
+    this.tempImages.set(imageUrl);
   }
 
   onSizeClicked(size: string)
@@ -91,7 +123,7 @@ export class ProductDetailsComponent implements OnInit
     {
       // crear
       const product = await firstValueFrom(
-        this.productsService.createProduct(productLike)
+        this.productsService.createProduct(productLike, this.imageFileList)
       );
 
       console.log('Producto Creado!!', product);
@@ -101,7 +133,11 @@ export class ProductDetailsComponent implements OnInit
     else
     {
       await firstValueFrom(
-        this.productsService.updateProduct(this.product().id, productLike)
+        this.productsService.updateProduct(
+          this.product().id,
+          productLike,
+          this.imageFileList
+        )
       );
     }
 
