@@ -8,19 +8,31 @@
       <div class="swiper-slide">
         <img
           class="animate-fadeIn w-full object-cover"
-          [src]="image | productImage"
           alt="Producto Nº{{ $index + 1 }}"
+          [src]="image | productImage"
+        />
+      </div>
+    }
+    @empty
+    {
+      <div class="swiper-slide">
+        <img
+          class="animate-fadeIn w-full object-cover"
+          alt="No Image"
+          [src]="null | productImage"
         />
       </div>
     }
   </div>
-  <!-- If we need pagination -->
-  <div class="swiper-pagination"></div>
 
   <!-- If we need navigation buttons -->
-  <div class="swiper-button-prev"></div>
-  <div class="swiper-button-next"></div>
-
+  @if (images().length > 1)
+  {
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  }
   <!-- If we need scrollbar -->
   <div class="swiper-scrollbar"></div>
 </div>

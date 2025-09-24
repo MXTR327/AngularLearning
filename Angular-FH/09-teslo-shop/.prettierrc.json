@@ -1,7 +1,6 @@
 {
   "arrowParens": "avoid",
   "braceStyle": "allman",
-  "experimentalTernaries": true,
   "overrides": [
     {
       "files": "*.html",
@@ -13,8 +12,10 @@
   "plugins": [
     "prettier-plugin-tailwindcss",
     "prettier-plugin-brace-style",
+    "prettier-plugin-organize-attributes",
     "prettier-plugin-merge"
   ],
+  "attributeGroups": ["$CODE_GUIDE"],
   "semi": true,
   "singleQuote": true,
   "tabWidth": 2,
