@@ -1,1 +1,80 @@
-<p>control-flow works!</p>,
+<app-title title="Control Flow" withShadow />
+
+<section class="grid grid-cols-1 gap-3 md:grid-cols-2">
+  <!-- ngInf @if -->
+  <div class="rounded bg-white p-10 shadow">
+    <h2 class="mb-5 text-2xl font-bold">if: {{ showContent() }}</h2>
+
+    <button
+      class="rounded bg-blue-500 p-2 text-white"
+      (click)="toggleContent()"
+    >
+      Click me!
+    </button>
+
+    @if (showContent())
+    {
+      <p>Hola Mundo</p>
+    }
+    @else
+    {
+      <p>**********</p>
+    }
+  </div>
+
+  <!-- @switch -->
+  <div class="rounded bg-white p-10 shadow">
+    <h2 class="text-3xl">{{ grade() }}</h2>
+
+    @switch (grade())
+    {
+      @case ('A')
+      {
+        <p>Arriba de 90</p>
+      }
+      @case ('B')
+      {
+        <p>Arriba de 80</p>
+      }
+      @default
+      {
+        <p>Reprobado</p>
+      }
+    }
+  </div>
+
+  <!-- @for -->
+  <div class="rounded bg-white p-10 shadow">
+    <ul>
+      @for (
+        framework of frameworks();
+        track $index;
+        let i = $index, first = $first, last = $last, even = $even, odd = $odd, count = $count
+      )
+      {
+        <li
+          [class]="{
+            'bg-red-100': even && !first && !last,
+            'bg-purple-100': odd && !first && !last,
+            'bg-blue-100': first || last,
+          }"
+        >
+          {{ i + 1 }}/{{ count }} - {{ framework }}
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="rounded bg-white p-10 shadow">
+    <ul>
+      @for (framework of frameworks2(); track $index)
+      {
+        <li>{{ framework }}</li>
+      }
+      @empty
+      {
+        <li>No hay frameworks agregados</li>
+      }
+    </ul>
+  </div>
+</section>

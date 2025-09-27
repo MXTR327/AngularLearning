@@ -1,8 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-heavy-loaders-fast',
   imports: [],
-  template: `<h1>Heavy Loaders Fast</h1>`,
+  template: `
+    <section class="w-full" [class]="cssClass()">
+      <ng-content />
+    </section>
+  `,
 })
-export class HeavyLoadersFastComponent {}
+export class HeavyLoadersFastComponent
+{
+  public cssClass = input.required<string>();
+
+  constructor()
+  {
+    console.log('Heavy loader fast creado');
+  }
+}

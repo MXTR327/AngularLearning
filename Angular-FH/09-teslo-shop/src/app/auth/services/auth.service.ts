@@ -76,7 +76,6 @@ export class AuthService
     this._user.set(null);
     this._token.set(null);
     this._authStatus.set('not-authenticated');
-
     localStorage.removeItem('token');
   }
 
@@ -110,7 +109,6 @@ export class AuthService
     this._user.set(user);
     this._authStatus.set('authenticated');
     this._token.set(token);
-
     localStorage.setItem('token', token);
 
     return true;

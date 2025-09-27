@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   imports: [],
   template: `<h1>Hola mundo</h1>`,
 })
-export class UsersLoaderComponent {}
+export class UsersLoaderComponent
+{}
